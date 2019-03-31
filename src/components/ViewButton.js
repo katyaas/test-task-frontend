@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 import { observer } from 'mobx-react';
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import Spinner from 'react-bootstrap/Spinner';
 import { FaEye } from "react-icons/fa";
 
 import request from "../util/request";
@@ -32,8 +33,12 @@ class ViewButton extends React.Component {
       this.setState({ show: true });
       return;
     }
+    this.setState({
+      isLoading: true,
+      show: true,
+    });
     const content = await request(`files/${fileName}`);
-    this.setState({ show: true, fileContent: content });
+    this.setState({ show: true, fileContent: content, isLoading: false });
   };
 
   static allowView(mime) {
@@ -42,10 +47,13 @@ class ViewButton extends React.Component {
 
   get fileContent() {
     const { file: { fileName, mime }} = this.props;
+    if (this.state.isLoading) {
+      return <Spinner animation="border" />;
+    }
     if (mime.startsWith('image/')) {
       return <img className="img-file" src={`http://${config.backend}/files/${fileName}`} />;
     } else if (mime.startsWith('text/')) {
-      return <span className="text-file">${this.state.fileContent}</span>;
+      return <span className="text-file">{this.state.fileContent}</span>;
     }
     return <span>File {mime} not supported</span>;
   }

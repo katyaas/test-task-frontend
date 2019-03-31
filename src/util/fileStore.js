@@ -1,4 +1,4 @@
-import { action, extendObservable } from 'mobx';
+import { action, runInAction, extendObservable } from 'mobx';
 import request from "./request";
 
 export default class fileStore {
@@ -37,7 +37,9 @@ export default class fileStore {
         method: 'DELETE',
       }
     );
-    this.files = this.files.filter(file => file.fileName !== fileName);
+    runInAction(() => {
+      this.files = this.files.filter(file => file.fileName !== fileName);
+    });
   };
 
   addFiles = action((newFiles) => {
