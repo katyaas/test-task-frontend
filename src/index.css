@@ -1,3 +1,11 @@
 .button-panel {
   margin: 10px 0;
 }
+
+.text-file {
+  white-space: pre-line;
+  word-break: break-all;
+}
+.img-file {
+  max-width: 100%;
+}

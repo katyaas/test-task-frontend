@@ -4,7 +4,9 @@ import Spinner from 'react-bootstrap/Spinner';
 import Button from 'react-bootstrap/Button';
 import filesize from 'filesize';
 import moment from 'moment';
-import { FaTrash, FaEye } from 'react-icons/fa';
+import { FaTrash } from 'react-icons/fa';
+
+import ViewButton from './ViewButton';
 
 class FileList extends  React.Component {
   constructor(props) {
@@ -18,10 +20,6 @@ class FileList extends  React.Component {
     this.setState({
       isLoading: false,
     });
-  }
-
-  static allowView(mime) {
-    return mime && (mime.startsWith('image/') || mime.startsWith('text/'));
   }
 
   render() {
@@ -43,12 +41,7 @@ class FileList extends  React.Component {
           <td>{filesize(file.size)}</td>
           <td>{moment(file.updatedAt).format('DD.MM.YYYY HH:mm:ss (Z)')}</td>
           <td>
-            {
-              FileList.allowView(file.mime) &&
-              <Button variant="light">
-                <FaEye/>
-              </Button>
-            }
+            <ViewButton file={file}/>
             <Button variant="danger" onClick={removeFile(file.fileName)}>
               <FaTrash />
             </Button>
