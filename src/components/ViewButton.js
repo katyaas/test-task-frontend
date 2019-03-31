@@ -74,7 +74,7 @@ class ViewButton extends React.Component {
             {this.fileContent}
           </Modal.Body>
           <Modal.Footer>
-            <Button variant="primary">Close</Button>
+            <Button variant="primary" onClick={this.handleClose}>Close</Button>
           </Modal.Footer>
         </Modal>
       </React.Fragment>
