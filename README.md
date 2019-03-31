@@ -1,4 +1,4 @@
-Simple file maanger
+Simple file manager
 Rest api here https://github.com/katyaas/test-task-backend
 
 Features:
